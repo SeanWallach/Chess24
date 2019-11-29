@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project name="Hello" default="packaging">
+	<target name="print message">
+		<echo message="Building JAR file!"/>
+		<mkdir dir=""/>
+		<javac srcdir =""
+			destdir=""/>
+		<jar destfile=""
+			basedir=""
+		</jar>
+		
+		<java jar="" fork="true">
+		</java>
+	</target>
+</project>

@@ -14,8 +14,6 @@ public class ChessGUI extends JFrame implements ActionListener{
 	private JMenuItem newGame, undo, redo;
 	private JMenu gameMenu;
 	private JPanel[][] tiles;
-	//private ImageIcon BPawn, WPawn, BRook, WRook, BKnight, WKnight, BBishop, WBishop, BKing, WKing, BQueen, WQueen;	// All Gamepiece icons
-	private JPanel BPawn, WPawn, BRook, WRook, BKnight, WKnight, BBishop, WBishop, BKing, WKing, BQueen, WQueen;	
 	
 	private GamePiece selectedPiece;
 	
@@ -28,6 +26,7 @@ public class ChessGUI extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 600);		
 		setLocation(400,200);
+		setResizable(false);
 		
 		// Menubar
 		JMenuBar menuBar = new JMenuBar();
@@ -39,6 +38,8 @@ public class ChessGUI extends JFrame implements ActionListener{
 		newGame = new JMenuItem("New Game");
 		newGame.addActionListener(e -> {
 			game = new Game();
+			updateBoard();
+			setVisible(true);
 		});
 		gameMenu.add(newGame);
 		
@@ -56,7 +57,7 @@ public class ChessGUI extends JFrame implements ActionListener{
 				if ((i+j)%2 == 0) {
 					tiles[i][j].setBackground(Color.WHITE);
 				} else {
-					tiles[i][j].setBackground(Color.BLACK);
+					tiles[i][j].setBackground(Color.DARK_GRAY);
 				}
 				panel.add(tiles[i][j]);
 			}
@@ -64,26 +65,7 @@ public class ChessGUI extends JFrame implements ActionListener{
 		
 		add(panel, BorderLayout.CENTER);
 		
-		// Create GUI pieces
-		// Black
-		BPawn = new JPanel();
-		BRook = new JPanel();
-		BKnight = new JPanel();
-		BBishop = new JPanel();
-		BQueen = new JPanel();
-		BKing = new JPanel();
-		
-		// White
-		WPawn = new JPanel();
-		WRook = new JPanel();
-		WKnight = new JPanel();
-		WBishop = new JPanel();
-		WQueen = new JPanel();
-		WKing = new JPanel();
-		
 		setVisible(true);
-		updateBoard();
-		
 	}
 
 	@Override
@@ -106,7 +88,6 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} else {									// Black piece
@@ -115,7 +96,6 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -126,7 +106,6 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} else {									// Black piece
@@ -135,18 +114,16 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					} else if (p == Pieces.Knight) {
+					} else if (p == Pieces.Knight) {				// Knight
 						if (selectedPiece.getColour() == true) {	// White piece
 							try {
 								piecePic = ImageIO.read(new File("src/images/WKnight.png"));
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} else {									// Black piece
@@ -155,18 +132,16 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					} else if (p == Pieces.Bishop) {
+					} else if (p == Pieces.Bishop) {				// Bishop
 						if (selectedPiece.getColour() == true) {	// White piece
 							try {
 								piecePic = ImageIO.read(new File("src/images/WBishop.png"));
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} else {									// Black piece
@@ -175,18 +150,16 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					} else if (p == Pieces.Queen) {
+					} else if (p == Pieces.Queen) {					// Queen
 						if (selectedPiece.getColour() == true) {	// White piece
 							try {
 								piecePic = ImageIO.read(new File("src/images/WQueen.png"));
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} else {									// Black piece
@@ -195,27 +168,24 @@ public class ChessGUI extends JFrame implements ActionListener{
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					} else if (p == Pieces.King) {
+					} else if (p == Pieces.King) {					// King
 						if (selectedPiece.getColour() == true) {	// White piece
 							try {
 								piecePic = ImageIO.read(new File("src/images/WKing.png"));
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
-							}
+							}	
 						} else {									// Black piece
 							try {
 								piecePic = ImageIO.read(new File("src/images/BKing.png"));
 								JLabel picLabel = new JLabel(new ImageIcon(piecePic));
 								tiles[i][j].add(picLabel);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}

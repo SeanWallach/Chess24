@@ -14,6 +14,8 @@ public class GameBoard {
 				tiles[i][j] = new Tile(i, j, false);
 			}
 		}
+		
+		setUp();
 	}
 	
 	// Set up board 
@@ -83,11 +85,11 @@ public class GameBoard {
 				
 				// Pawn placements
 				if (j == 1) {
-					Pawn p = new Pawn(i, j, false);
+					Pawn p = new Pawn(i, j, false, false);
 					tiles[i][j].setOnTop(p);
 					boardpieces.add(p);
 				} else if (j == 6) {
-					Pawn p = new Pawn(i, j, true);
+					Pawn p = new Pawn(i, j, true, true);
 					tiles[i][j].setOnTop(p);
 					boardpieces.add(p);
 				}
@@ -102,7 +104,6 @@ public class GameBoard {
 			boardpieces.remove(tiles[x][y].getOnTop());	// removes piece that is being placed from the list of boardpieces
 		} 
 		tiles[x][y].setOnTop(p);
-		
 	}
 	
 	public Tile getTile(int i, int j) {

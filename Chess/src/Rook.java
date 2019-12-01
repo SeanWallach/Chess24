@@ -14,6 +14,7 @@ public class Rook extends GamePiece{
 
 	@Override
 	public void move(int x, int y, Tile[][] tiles) {
-		
+		this.x = x;
+		this.y = y;
 	}
 }

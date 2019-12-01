@@ -18,7 +18,7 @@ public class GameBoard {
 		setUp();
 	}
 	
-	// Set up board 
+	// Set up board with black on top and white on bottom
 	public void setUp() {
 		for (int i = 0; i < 8; i++) {	// Cycle through columns
 			for (int j = 0; j < 8; j++) {	// Cycle through rows
@@ -108,23 +108,49 @@ public class GameBoard {
 	
 	// Returns the tile specified at i and j
 	public Tile getTile(int i, int j) {
-		return tiles[i][j];
+		return this.tiles[i][j];
 	}
 	
-	// Movement rules, returns list of possible tiles you can move to 
+	// UNUSED
+	// Returns this gameboard's tiles
+	public Tile[][] getTiles() {
+		return this.tiles;
+	}
+	
+	// Movement rules for each piece, returns list of possible tiles GamePiece P can move to
 	public ArrayList<Tile> possibleMoves(GamePiece p) {
+		ArrayList <Tile> possibleMoves = new ArrayList<Tile>();
 		
 		// Pawn Moves
 		if (p.getType() == ChessGUI.Pieces.Pawn) {
-			// If has already moved, cannot double move
-			if (((Pawn) p).hasMoved()) {
-				 
+
+			// Black piece
+			if (p.getColour()) {
+				// If Pawn hasn't moved, can double move
+				if (!((Pawn) p).hasMoved()) {
+					if (tiles[p.getX()][p.getY() - 2].isEmpty()) {
+						possibleMoves.add(tiles[p.getX()][p.getY() - 2]);
+					}
+				} 
+				if (tiles[p.getX()][p.getY() - 1].isEmpty()) {
+					possibleMoves.add(tiles[p.getX()][p.getY() - 1]);
+				}
+			
+			//White piece
 			} else {
-				if (tiles[i][j].isEmpty()) {
-					
+				// If hasn't moved, can double move
+				if (!((Pawn) p).hasMoved()) {
+					if (tiles[p.getX()][p.getY() + 2].isEmpty()) {
+						possibleMoves.add(tiles[p.getX()][p.getY() + 2]);
+					}
+				} 
+				if (tiles[p.getX()][p.getY() + 1].isEmpty()) {
+					possibleMoves.add(tiles[p.getX()][p.getY() + 1]);
 				}
 			}
-		
+			
+			
+			
 		// Rook Moves
 		} else if (p.getType() == ChessGUI.Pieces.Rook) {
 			
@@ -139,6 +165,6 @@ public class GameBoard {
 		} else {
 			
 		}
-		return null;
+		return possibleMoves;
 	}
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Game {
 	public GameBoard gameboard;
@@ -12,7 +13,7 @@ public class Game {
 		return gameboard;
 	}
 	
-	public void pieceSelected(GamePiece p) {
-		gameboard.possibleMoves(p);
+	public ArrayList<Tile> pieceSelected(GamePiece p) {
+		return gameboard.possibleMoves(p);
 	}
 }

@@ -17,8 +17,9 @@ public class Pawn extends GamePiece{
 	
 	@Override
 	public void move(int x, int y, Tile[][] tiles) {
-		// TODO Auto-generated method stub
 		this.hasMoved = true;
+		this.x = x; 
+		this.y = y;
 	}
 }
 

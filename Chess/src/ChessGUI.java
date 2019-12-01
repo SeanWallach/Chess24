@@ -12,15 +12,17 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class ChessGUI extends JFrame implements MouseListener{
-	public Game game;
-	private JMenuItem newGame, undo, redo;
-	private JMenu gameMenu;
-	private JPanel[][] tiles;
+	public Game game;							// Controller 
+	private JMenuItem newGame, undo, redo;		// Menuitems used for the frame's menus
+	private JMenu gameMenu;						// Main menu for the frame
+	private JPanel[][] tiles;					// 8 x 8 tile array representing a chess board
 	private JPanel currentPanel;
 	
 	private GamePiece selectedPiece;
+	private ArrayList<Tile> possibleMoves;
 	
 	private boolean running;
+	
 	public enum Pieces {
 		Pawn, Rook, Knight, Bishop, King, Queen;
 	}
@@ -34,6 +36,7 @@ public class ChessGUI extends JFrame implements MouseListener{
 		
 		currentPanel = null;
 		running = false; 
+		possibleMoves = new ArrayList();
 		
 		// Menubar
 		JMenuBar menuBar = new JMenuBar();
@@ -206,14 +209,25 @@ public class ChessGUI extends JFrame implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (running) {	// only process mouseclicks on panel if game is running
-			for(int j = 0; j < 8; j++) {	// Checkered pattern algorithm
-				for(int i = 0; i <8; i++) {
+		if (running) {																// only process mouse clicks on panel if a game is running
+			for(int j = 0; j < 8; j++) {											// Checkered pattern algorithm
+				for(int i = 0; i <8; i++) { 										// Checkered pattern algorithm
 					if (currentPanel == tiles[i][j]) {
 						GamePiece selectedPiece = game.getGameBoard().getTile(i, j).getOnTop();
 						if (selectedPiece != null) {
-							System.out.println(selectedPiece);         // DEBUGGING
-							game.pieceSelected(selectedPiece);
+							      	// DEBUGGING
+							possibleMoves = game.pieceSelected(selectedPiece);
+							//System.out.println(possibleMoves.get(i));			// DEBUGGING
+							System.out.println("\n===================");
+							System.out.print("Possible moves for ");
+							System.out.println(selectedPiece.getType());
+							for (int z = 0; z < possibleMoves.size(); z++) {
+								int newX = possibleMoves.get(z).getX();
+								int newY = possibleMoves.get(z).getY();
+								
+								
+								System.out.println("\nx: " + newX + "\ny: " + newY);
+							}
 						}
 					}
 				}

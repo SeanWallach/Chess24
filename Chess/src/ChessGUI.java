@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,14 +11,16 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class ChessGUI extends JFrame implements ActionListener{
+public class ChessGUI extends JFrame implements MouseListener{
 	public Game game;
 	private JMenuItem newGame, undo, redo;
 	private JMenu gameMenu;
 	private JPanel[][] tiles;
+	private JPanel currentPanel;
 	
 	private GamePiece selectedPiece;
 	
+	private boolean running;
 	public enum Pieces {
 		Pawn, Rook, Knight, Bishop, King, Queen;
 	}
@@ -28,6 +32,9 @@ public class ChessGUI extends JFrame implements ActionListener{
 		setLocation(400,200);
 		setResizable(false);
 		
+		currentPanel = null;
+		running = false; 
+		
 		// Menubar
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -38,6 +45,7 @@ public class ChessGUI extends JFrame implements ActionListener{
 		newGame = new JMenuItem("New Game");
 		newGame.addActionListener(e -> {
 			game = new Game();
+			running = true;
 			updateBoard();
 			setVisible(true);
 		});
@@ -54,6 +62,7 @@ public class ChessGUI extends JFrame implements ActionListener{
 		for(int j = 0; j < 8; j++) {	// Checkered pattern algorithm
 			for(int i = 0; i <8; i++) {
 				tiles[i][j] = new JPanel();
+				tiles[i][j].addMouseListener(this);
 				if ((i+j)%2 == 0) {
 					tiles[i][j].setBackground(Color.WHITE);
 				} else {
@@ -66,11 +75,6 @@ public class ChessGUI extends JFrame implements ActionListener{
 		add(panel, BorderLayout.CENTER);
 		
 		setVisible(true);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent event) {
-
 	}
 	
 	public void updateBoard() {
@@ -195,6 +199,43 @@ public class ChessGUI extends JFrame implements ActionListener{
 		}
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (running) {	// only process mouseclicks on panel if game is running
+			for(int j = 0; j < 8; j++) {	// Checkered pattern algorithm
+				for(int i = 0; i <8; i++) {
+					if (currentPanel == tiles[i][j]) {
+						GamePiece selectedPiece = game.getGameBoard().getTile(i, j).getOnTop();
+						if (selectedPiece != null) {
+							System.out.println(selectedPiece);         // DEBUGGING
+							game.pieceSelected(selectedPiece);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		currentPanel = (JPanel) e.getComponent();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	
 	public static void main(String[] args) {
 		new ChessGUI();
 	}

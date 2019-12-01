@@ -11,4 +11,8 @@ public class Game {
 	public GameBoard getGameBoard() {
 		return gameboard;
 	}
+	
+	public void pieceSelected(GamePiece p) {
+		gameboard.possibleMoves(p);
+	}
 }

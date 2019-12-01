@@ -4,6 +4,7 @@ public class Tile {
 	private boolean empty;		// TRUE = empty, FALSE = occupied
 	private GamePiece onTop;	// GamePiece that occupies tile
 	private boolean isEdge;		// TRUE = is on the edge, FALSE = not on the edge 
+	private ChessGUI.Pieces type;
 	
 	// Creates tile with specified x and y, and whether or not the tile is on the edge of the board 
 	public Tile(int x, int y, boolean isEdge) {
@@ -38,6 +39,7 @@ public class Tile {
 		if (empty) {
 			this.onTop = p;
 			this.empty = false;
+			this.type = p.type;
 		} else {
 			System.out.println("This tile is already occupied!");
 		}
@@ -48,4 +50,11 @@ public class Tile {
 		return this.isEdge;
 	}
 	
+	public ChessGUI.Pieces getType() {
+		if (empty) {
+			System.out.println("This tile is empty!");
+			return null;
+		} 
+		return this.type;
+	}
 }

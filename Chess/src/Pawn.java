@@ -5,11 +5,10 @@ public class Pawn extends GamePiece{
 	
 	// Pawns have a direction as they can only move forwards
 	public Pawn(int x, int y, boolean colour, boolean direction) {
-		super(x, y, colour);
-		type = ChessGUI.Pieces.Pawn;
-		
-		this.direction = direction;
+		super(x, y, colour);		
 		this.hasMoved = false;
+		this.direction = direction;		
+		type = ChessGUI.Pieces.Pawn;
 	}
 	
 	public boolean hasMoved() {

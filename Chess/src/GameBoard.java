@@ -106,10 +106,39 @@ public class GameBoard {
 		tiles[x][y].setOnTop(p);
 	}
 	
+	// Returns the tile specified at i and j
 	public Tile getTile(int i, int j) {
 		return tiles[i][j];
 	}
-	public ArrayList<GamePiece> possibleMoves() {
+	
+	// Movement rules, returns list of possible tiles you can move to 
+	public ArrayList<Tile> possibleMoves(GamePiece p) {
+		
+		// Pawn Moves
+		if (p.getType() == ChessGUI.Pieces.Pawn) {
+			// If has already moved, cannot double move
+			if (((Pawn) p).hasMoved()) {
+				 
+			} else {
+				if (tiles[i][j].isEmpty()) {
+					
+				}
+			}
+		
+		// Rook Moves
+		} else if (p.getType() == ChessGUI.Pieces.Rook) {
+			
+		} else if (p.getType() == ChessGUI.Pieces.Knight) {
+			
+		} else if (p.getType() == ChessGUI.Pieces.Bishop) {
+			
+		} else if (p.getType() == ChessGUI.Pieces.Queen) {
+			
+		} else if (p.getType() == ChessGUI.Pieces.King) {
+			
+		} else {
+			
+		}
 		return null;
 	}
 }

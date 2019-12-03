@@ -7,7 +7,7 @@ public class Pawn extends GamePiece{
 	public Pawn(int x, int y, boolean colour, boolean direction) {
 		super(x, y, colour);		
 		this.hasMoved = false;
-		this.direction = direction;		
+		this.direction = direction;		 // TRUE = can only move up, FALSE = can only move down
 		type = ChessGUI.Pieces.Pawn;
 	}
 	

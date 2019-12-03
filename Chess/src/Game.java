@@ -16,4 +16,8 @@ public class Game {
 	public ArrayList<Tile> pieceSelected(GamePiece p) {
 		return gameboard.possibleMoves(p);
 	}
+
+	public boolean moveSelected(int x, int y) {
+		return gameboard.moveSelected(x, y);
+	}
 }

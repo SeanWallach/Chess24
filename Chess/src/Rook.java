@@ -16,5 +16,6 @@ public class Rook extends GamePiece{
 	public void move(int x, int y, Tile[][] tiles) {
 		this.x = x;
 		this.y = y;
+		this.hasMoved = true;
 	}
 }

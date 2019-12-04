@@ -21,7 +21,7 @@ public class ChessGUI extends JFrame implements MouseListener {
 	
 	private GamePiece selectedPiece;		// The player on the piece that the player selected
 	private ArrayList<Integer> newX, newY;	// The possible moves of 
-	private ArrayList<Tile> possibleMoves;
+	private Tile[][] possibleMoves;
 
 	private boolean running;
 
@@ -38,7 +38,7 @@ public class ChessGUI extends JFrame implements MouseListener {
 
 		currentPanel = null;
 		running = false;
-		possibleMoves = new ArrayList<Tile>();
+		possibleMoves = new Tile[8][8];
 		newX = new ArrayList<>();
 		newY = new ArrayList<>();
 
@@ -245,7 +245,7 @@ public class ChessGUI extends JFrame implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// First click (going from)
-		if (possibleMoves.isEmpty()) {
+		if (possibleMoves.length != 0) {
 			if (running) { // only process mouse clicks on panel if a game is running
 				for (int j = 0; j < 8; j++) { // Checkered pattern algorithm
 					for (int i = 0; i < 8; i++) { // Checkered pattern algorithm
@@ -264,12 +264,15 @@ public class ChessGUI extends JFrame implements MouseListener {
 								}
 								
 								
-								if (!possibleMoves.isEmpty()) {
-									for (Tile t: possibleMoves) {
-										System.out.println("\nx: " + t.getX() + "\ny: " + t.getY());
+								if (possibleMoves.length != 0) {
+									for (int x = 0; x < 8; x++) { // Cycle through columns
+										for (int y = 0; y < 8; y++) { // Cycle through rows
+											if (possibleMoves[x][y] != null) {
+												System.out.println("\nx: " + possibleMoves[x][y].getX() + "\ny: " + possibleMoves[x][y].getY());
+											}
+										}
 									}
 								}
-								
 								tiles[i][j].setBackground(Color.YELLOW);
 							}
 						}
@@ -283,26 +286,28 @@ public class ChessGUI extends JFrame implements MouseListener {
 					if (currentPanel == tiles[i][j]) {
 						// DISABLE YELLOW COLOR HERE
 						
-						for (Tile t: possibleMoves) { 				// Iterate through all possible moves found on the first mouse click
-							if (t.getX() == i && t.getY() == j) {	// Get each x and y
-								//Create 
-								boolean moveSelected = game.moveSelected(i, j);
-								// Gameboard returns whether or not it moved the piece								if (moveSelected) {
-								if (moveSelected) {
+						// Iterate through all possible moves found on the first mouse click
+						for (int x = 0; x < 8; x++) { // Cycle through columns
+							for (int y = 0; y < 8; y++) { // Cycle through rows		 				
+								if (possibleMoves[x][y].getX() == x && possibleMoves[x][y].getY() == y) {	// Get each x and y
 									
+									//Create 
+									boolean moveSelected = game.moveSelected(i, j);
+									
+									// Gameboard returns whether or not it moved the piece								if (moveSelected) {
+									if (moveSelected) {
+										
+									}
+									
+									System.out.println("\nYou just moved " + selectedPiece.getType() + " to x,y = [" + i + ", " + j + "]");
+									possibleMoves = new Tile[8][8];		// Clear possible moves
 								}
-								
-								System.out.println("\nYou just moved " + selectedPiece.getType() + " to x,y = [" + i + ", " + j + "]");
-								possibleMoves.clear();
 							}
 						}
 					}
 				}
 			}
-		
 		}
-		
-				
 	}
 
 	@Override

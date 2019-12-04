@@ -13,7 +13,7 @@ public class Game {
 		return gameboard;
 	}
 	
-	public ArrayList<Tile> pieceSelected(GamePiece p) {
+	public Tile[][] pieceSelected(GamePiece p) {
 		return gameboard.possibleMoves(p);
 	}
 

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 public class GameBoard {
 	public Tile[][] tiles;
 	public GamePiece[][] boardpieces;
-	public ArrayList<Tile> possibleMoves;	// FIX 
+	public Tile[][] possibleMoves;	// FIX 
 	
 	// Creates a new board with empty tiles
 	public GameBoard() {
 		tiles = new Tile[8][8];
 		boardpieces = new GamePiece[8][8];
+		possibleMoves = new Tile[8][8];
 
 		for (int i = 0; i < 8; i++) {	// Checkered pattern algorithm
 			for (int j = 0; j < 8; j++) {	// Checkered pattern algorithm
@@ -140,53 +141,53 @@ public class GameBoard {
 	public boolean moveSelected(int x, int y) {
 		// Iterate through each possible move
 		System.out.println("\nGAMEBOARD: possible moves: " + possibleMoves);
-		for (Tile possibleMove: possibleMoves) {
-			// DEBUGGING
-			System.out.println("x: " + x + " " + possibleMove.getX() + " y: " + y + " " + possibleMove.getY() ); 
-			
-			// if the x and y match that of possibleMove, we return true, meaning that it was a legal move
-			if (x == possibleMove.getX() && y == possibleMove.getX()) {
-				//boardpieces[][] move();
-				System.out.println("GAMEBOARD: Nice move");
-				return true;
+		for (int i = 0; i < 8; i++) { // Cycle through columns
+			for (int j = 0; j < 8; j++) { // Cycle through rows				
+				// if the x and y match that of possibleMove, we return true, meaning that it was a legal move
+				if (x == possibleMoves[i][j].getX() && y == possibleMoves[i][j].getX()) {
+					//boardpieces[][] move();
+					// DEBUGGING
+					System.out.println("x: " + x + " " + possibleMoves[i][j].getX() + " y: " + y + " " + possibleMoves[i][j].getY() ); 
+					System.out.println("GAMEBOARD: Nice move");
+					return true;
+				}
 			}
 		}
 		System.out.println("GAMEBOARD: Invalid move");
-		possibleMoves.clear();
 		return false;
 	}
 	
 	// Movement rules for each piece, returns list of possible tiles GamePiece P can move to
-	public ArrayList<Tile> possibleMoves(GamePiece p) {
-		ArrayList<Tile> possibleMoves = new ArrayList<Tile>();	// Will have to change to 3D
-
+	public Tile[][] possibleMoves(GamePiece p) {
 		// Possible moves for Pawn 
+		possibleMoves = new Tile[8][8];
 		if (p.getType() == ChessGUI.Pieces.Pawn) {
 
 			// Black piece
-			if (p.getColour()) {
+			if (!p.getColour()) {
 				// If Pawn hasn't moved, can double move
 				if (!((Pawn) p).hasMoved()) {
-					if (tiles[p.getX()][p.getY() - 2].isEmpty()) {
-						possibleMoves.add(tiles[p.getX()][p.getY() - 2]);
+					if (tiles[p.getX()][p.getY() + 2].isEmpty()) {
+						possibleMoves[p.getX()][p.getY() + 2] = (tiles[p.getX()][p.getY() + 2]);
 					}
 				}
 				// Also check square in front of pawn
-				if (tiles[p.getX()][p.getY() - 1].isEmpty()) {
-					possibleMoves.add(tiles[p.getX()][p.getY() - 1]);
+				if (tiles[p.getX()][p.getY() + 1].isEmpty()) {					
+					System.out.println("can double move?: " + ((Pawn) p).hasMoved());
+					possibleMoves[p.getX()][p.getY() + 1] = (tiles[p.getX()][p.getY() + 1]);
 				}
 
 			// White piece
 			} else {
 				// If Pawn hasn't moved, can double move
 				if (!((Pawn) p).hasMoved()) {
-					if (tiles[p.getX()][p.getY() + 2].isEmpty()) {
-						possibleMoves.add(tiles[p.getX()][p.getY() + 2]);
+					if (tiles[p.getX()][p.getY() - 2].isEmpty()) {
+						possibleMoves[p.getX()][p.getY() - 2] = (tiles[p.getX()][p.getY() - 2]);
 					}
 				}
 				// Also check square in front of pawn
-				if (tiles[p.getX()][p.getY() + 1].isEmpty()) {
-					possibleMoves.add(tiles[p.getX()][p.getY() + 1]);
+				if (tiles[p.getX()][p.getY() - 1].isEmpty()) {
+					possibleMoves[p.getX()][p.getY() - 1] = (tiles[p.getX()][p.getY() - 1]);
 				}
 			}
 
@@ -195,15 +196,18 @@ public class GameBoard {
 			
 			// Black piece
 			if (p.getColour()) {
+				
+				// ITERATE THROUGH COLUMNS/ROWS
 				//for (int i = 0; i < tiles[p.getX()][p.getY()].get)
+				
 				if (tiles[p.getX()][p.getY()].isEmpty()) {
-					possibleMoves.add(tiles[p.getX()][p.getY() - 1]);
+					possibleMoves[p.getX()][p.getY()] =(tiles[p.getX()][p.getY() - 1]);
 				}
 
 			// White piece
 			} else {
 				if (tiles[p.getX()][p.getY() + 1].isEmpty()) {
-					possibleMoves.add(tiles[p.getX()][p.getY() + 1]);
+					possibleMoves[p.getX()][p.getY()] = (tiles[p.getX()][p.getY() + 1]);
 				}
 			}
 

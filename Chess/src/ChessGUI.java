@@ -245,7 +245,7 @@ public class ChessGUI extends JFrame implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// First click (going from)
-		if (possibleMoves.length != 0) {
+		if (possibleMoves != null) {
 			if (running) { // only process mouse clicks on panel if a game is running
 				for (int j = 0; j < 8; j++) { // Checkered pattern algorithm
 					for (int i = 0; i < 8; i++) { // Checkered pattern algorithm
@@ -263,7 +263,6 @@ public class ChessGUI extends JFrame implements MouseListener {
 									System.out.println("black " + selectedPiece.getType() + ":");
 								}
 								
-								
 								if (possibleMoves.length != 0) {
 									for (int x = 0; x < 8; x++) { // Cycle through columns
 										for (int y = 0; y < 8; y++) { // Cycle through rows
@@ -273,6 +272,7 @@ public class ChessGUI extends JFrame implements MouseListener {
 										}
 									}
 								}
+								
 								tiles[i][j].setBackground(Color.YELLOW);
 							}
 						}
@@ -285,7 +285,7 @@ public class ChessGUI extends JFrame implements MouseListener {
 				for (int i = 0; i < 8; i++) { // Checkered pattern algorithm
 					if (currentPanel == tiles[i][j]) {
 						// DISABLE YELLOW COLOR HERE
-						
+						System.out.println("Second click");
 						// Iterate through all possible moves found on the first mouse click
 						for (int x = 0; x < 8; x++) { // Cycle through columns
 							for (int y = 0; y < 8; y++) { // Cycle through rows		 				

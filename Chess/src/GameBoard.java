@@ -173,7 +173,6 @@ public class GameBoard {
 				}
 				// Also check square in front of pawn
 				if (tiles[p.getX()][p.getY() + 1].isEmpty()) {					
-					System.out.println("can double move?: " + ((Pawn) p).hasMoved());
 					possibleMoves[p.getX()][p.getY() + 1] = (tiles[p.getX()][p.getY() + 1]);
 				}
 
